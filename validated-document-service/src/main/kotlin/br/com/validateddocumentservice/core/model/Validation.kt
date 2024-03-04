@@ -45,5 +45,9 @@ class Validation (
 
     fun setSuccess(value: Boolean){ this.success = value};
 
+    fun getUserId(): String {return this.userId};
+    fun getTransactionId(): String {return this.transactionId}
+    fun getSuccess(): Boolean {return this.success}
+
 }
 

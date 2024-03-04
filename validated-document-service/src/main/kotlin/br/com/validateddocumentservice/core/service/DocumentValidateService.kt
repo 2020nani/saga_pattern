@@ -1,5 +1,7 @@
 package br.com.validateddocumentservice.core.service
 
+import br.com.validateddocumentservice.application.dto.DocumentDto
+import br.com.validateddocumentservice.application.dto.DocumentGraphql
 import br.com.validateddocumentservice.application.dto.Event
 import br.com.validateddocumentservice.application.dto.History
 import br.com.validateddocumentservice.application.exception.ValidationException
@@ -31,8 +33,7 @@ class DocumentValidateService (
 
     fun validateDocument(event: Event) {
         try {
-            println("teste")
-            println(documentClient.getDocument("33509878976"))
+            validatedEvent(event)
             checkCurrentValidation(event)
             createValidation(event, true)
             handleSuccess(event)
@@ -56,6 +57,12 @@ class DocumentValidateService (
     }
 
     private fun validatedEvent(event: Event) {
+        log.info("Verify document {}", event.getPayload()!!.getDocument())
+        val isValidatedDocument: DocumentDto? = documentClient.getDocument(event.getPayload()!!.getDocument())
+        println(isValidatedDocument)
+        if(Objects.nonNull(isValidatedDocument!!.getData()!!.getDoc())){
+            throw ValidationException("Document {} has some pendency in our base")
+        }
         if (isEmpty(event.getPayload()) || isEmpty(event.getPayload()?.getCep())) {
             throw ValidationException("User or cep is empty!")
         }
@@ -102,8 +109,10 @@ class DocumentValidateService (
     }
 
     private fun changeValidationToFail(event: Event) {
+        println("teste")
+        println(event)
         var validation: Validation = validationRepository
-            .findByUserIdAndTransactionId(event.getUserId()!!, event.getTransactionId()!!)
+            .findByUserIdAndTransactionId(event.getId()!!, event.getTransactionId()!!)
             .getOrElse { throw ValidationException("There is not validation") }
         validation.setSuccess(false)
         validationRepository.save(validation)

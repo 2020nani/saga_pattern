@@ -1,10 +1,6 @@
 package br.com.validateddocumentservice.application.dto
 
-import com.fasterxml.jackson.databind.PropertyNamingStrategy
-import com.fasterxml.jackson.databind.annotation.JsonNaming
 
-
-@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy::class)
 class GraphqlRequestBody {
     private var query: String? = null
     private var variables: Any? = null
@@ -16,6 +12,9 @@ class GraphqlRequestBody {
     fun setVariables(value: Any) {         // setter
         this.variables = value
     }
+
+    fun getQuery(): String? { return this.query}
+    fun getVariables(): Any? {return this.variables}
 
     override fun toString(): String {
         return "GraphqlRequestBody(query=$query, variables=$variables)"
