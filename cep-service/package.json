@@ -1,0 +1,28 @@
+{
+  "name": "cep-service",
+  "version": "1.0.0",
+  "description": "Service to find user data adress by cep",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "nodemon -r sucrase/register src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Hernani Almeida",
+  "license": "ISC",
+  "dependencies": {
+    "apollo-server": "^3.13.0",
+    "graphql": "^16.8.1"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^6.21.0",
+    "@typescript-eslint/parser": "^6.21.0",
+    "eslint": "^8.56.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.1.3",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "prettier": "^3.2.5",
+    "nodemon": "^2.0.7",
+    "sucrase": "^3.18.1"
+  }
+}

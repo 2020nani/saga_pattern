@@ -1,0 +1,35 @@
+server:
+  port: 8091
+
+spring:
+  kafka:
+    bootstrap-servers: ${KAFKA_BROKER:localhost:9092}
+    topic:
+      orchestrator: orchestrator
+      validated-success: validated-success
+      validated-fail: validated-fail
+    consumer:
+      group-id: validated-group
+      auto-offset-reset: latest
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5435}/${DB_NAME:validated-document}
+    username: ${DB_USER:admin}
+    password: ${DB_PASSWORD:password}
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+logging:
+  level:
+    org:
+      apache:
+        kafka: OFF
+
+graphql:
+  uri: ${GRAPHQL_URI:http://localhost:8088/}

@@ -1,0 +1,9 @@
+query($cep: ID!){
+    adress(cep: $cep){
+        id
+        bairro
+        number
+        street
+        cep
+    }
+}

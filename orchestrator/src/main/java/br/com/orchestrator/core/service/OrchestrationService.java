@@ -26,8 +26,6 @@ public class OrchestrationService {
     private final SagaExecutionController sagaExecutionController;
 
     public void startSaga(Event event) {
-        System.out.println("aqui");
-        System.out.println(event);
         event.setSource(ORCHESTRATOR);
         event.setStatus(SUCCESS);
         var topic = getTopic(event);

@@ -43,6 +43,21 @@ services:
       POSTGRES_HOST: userregistration-db
     networks:
       - orchestrator-saga
+  
+  validated-document-db:
+    image: 'postgres:alpine'
+    container_name: validated-document-db
+    volumes:
+      - validated-document-volume:/var/lib/postgresql/data
+    ports:
+      - 5435:5432
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: validated-document-db
+      POSTGRES_HOST: validated-document-db
+    networks:
+      - orchestrator-saga
 
   zookeeper:
     image: confluentinc/cp-zookeeper:latest
@@ -90,10 +105,69 @@ services:
           brokers: ["kafka:29092"]
     depends_on:
       - "kafka"
+  
+  user-service:
+    build: './user-service'
+    container_name: user-service
+    depends_on:
+      - user-db
+      - kafka
+    networks:
+      - orchestrator-saga
+    environment:
+      - KAFKA_BROKER=kafka:29092
+      - MONGO_DB_URI=mongodb://admin:123456@user-db:27017
+    ports:
+      - 3000:3000
+
+  orchestrator-service:
+    build: './orchestrator'
+    container_name: orchestrator-service
+    depends_on:
+      - kafka
+    networks:
+      - orchestrator-saga
+    environment:
+      - KAFKA_BROKER=kafka:29092
+    ports:
+      - 8080:8080
+  
+  adress-service:
+    build: './adress-service'
+    container_name: adress-service
+    depends_on:
+      - adress-db
+      - kafka
+      - cep-service
+    networks:
+      - orchestrator-saga
+    environment:
+      - KAFKA_BROKER=kafka:29092
+      - DB_HOST=adress-db
+      - DB_PORT=5432
+      - DB_NAME=adress-db
+      - DB_USER=admin
+      - DB_PASSWORD=password
+      - GRAPHQL_URI=http://172.22.0.7:8088/
+    ports:
+      - 8090:8090
+  
+  cep-service:
+    build:
+      dockerfile: ./dockerfile
+      context: ./cep-service
+    command: npm start
+    ports:
+      - '8088:8088'
+    networks:
+      - orchestrator-saga
+    volumes:
+      - ./cep-service:/usr/app
     
 volumes:
   adress-volume:
   userregistration-volume:
+  validated-document-volume:
 
 networks:
   orchestrator-saga:

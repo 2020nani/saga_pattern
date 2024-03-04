@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  cep-service:
+    build:
+      dockerfile: ./dockerfile
+      context: .
+    command: npm start
+    ports:
+      - '8088:8088'
+    volumes:
+      - .:/usr/app

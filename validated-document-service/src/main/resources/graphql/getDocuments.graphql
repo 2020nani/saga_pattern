@@ -1,0 +1,6 @@
+query($document: ID!){
+    doc(document: $document){
+        id
+        document
+    }
+}
