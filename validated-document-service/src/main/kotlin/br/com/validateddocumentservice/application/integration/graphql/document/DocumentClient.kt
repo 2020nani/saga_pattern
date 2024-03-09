@@ -23,7 +23,7 @@ class DocumentClient(
         val variables: String = GraphqlSchemaReaderUtil.getSchemaFromFileName("variables")
         graphQLRequestBody.setQuery(query)
         graphQLRequestBody.setVariables(variables.replace("documentNumber", documentNumber!!))
-        try {
+
             val teste = webClient.post()
                 .uri(url)
                 .bodyValue(graphQLRequestBody)
@@ -31,12 +31,5 @@ class DocumentClient(
                 .bodyToMono(DocumentDto::class.java)
                 .block()
             return teste;
-        } catch (e: Exception){
-
-            println(e.localizedMessage)
-            println(e.message)
-            println(e.cause)
-        }
-        return null;
     }
 }

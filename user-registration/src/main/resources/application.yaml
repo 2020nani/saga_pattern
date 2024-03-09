@@ -6,8 +6,8 @@ spring:
     bootstrap-servers: ${KAFKA_BROKER:localhost:9092}
     topic:
       orchestrator: orchestrator
-      validated-success: validated-success
-      validated-fail: validated-fail
+      finish-success: registration-success
+      registration-fail: registration-fail
     consumer:
       group-id: validated-group
       auto-offset-reset: latest
@@ -30,6 +30,3 @@ logging:
     org:
       apache:
         kafka: OFF
-
-graphql:
-  uri: ${GRAPHQL_URI:http://localhost:8088/}

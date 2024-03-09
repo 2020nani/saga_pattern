@@ -1,7 +1,7 @@
 {
-  "name": "cep-service",
+  "name": "data-service",
   "version": "1.0.0",
-  "description": "Service to find user data adress by cep",
+  "description": "Service to find user data",
   "main": "src/index.js",
   "scripts": {
     "start": "nodemon -r sucrase/register src/index.js",

@@ -83,7 +83,7 @@ public class AdressValidationService {
         event.setStatus(SUCCESS);
         event.setSource(CURRENT_SOURCE);
         log.info("Event {}", event);
-        addHistory(event, "adress are validated successfully! {}");
+        addHistory(event, "adress was validated successfully! {}");
     }
 
     private void addHistory(Event event, String message) {

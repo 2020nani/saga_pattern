@@ -1,8 +1,9 @@
-package br.com.validateddocumentservice.application.dto
+package br.com.userregistration.application.dto
 
-import br.com.validateddocumentservice.core.enums.ESagaStatus
+import br.com.userregistration.core.enums.ESagaStatus
 import org.springframework.util.ObjectUtils
 import java.time.LocalDateTime
+
 
 class Event {
     private val id: String? = null
@@ -23,15 +24,15 @@ class Event {
 
     fun setStatus(status: ESagaStatus) { this.status = status};
     fun setSource(source: String) { this.source = source}
-
     fun getId(): String? {return this.id}
     fun getUserId(): String? { return this.userId};
     fun getTransactionId(): String? { return this.transactionId};
     fun getPayload(): User? { return this.payload};
     fun getSource(): String? { return this.source};
-    fun getEventHistory(): MutableList<History>? {return this.eventHistory};
     fun getStatus(): ESagaStatus? { return this.status};
+    fun getEventHistory(): MutableList<History>? {return this.eventHistory};
     fun getCreatedAt(): LocalDateTime? {return this.createdAt}
+
     override fun toString(): String {
         return "Event(id=$id, userId=$userId, transactionId=$transactionId, payload=$payload, source=$source, status=$status, eventHistory=$eventHistory, createdAt=$createdAt)"
     };

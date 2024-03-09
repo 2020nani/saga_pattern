@@ -1,4 +1,4 @@
-package br.com.validateddocumentservice.core.model
+package br.com.userregistration.core.model
 
 import jakarta.persistence.*
 import java.time.LocalDateTime
@@ -40,7 +40,7 @@ class Validation (
     }
 
     fun setSuccess(value: Boolean){ this.success = value};
-
+    fun getId(): Int? {return this.id};
     fun getUserId(): String {return this.userId};
     fun getTransactionId(): String {return this.transactionId}
     fun getSuccess(): Boolean {return this.success}

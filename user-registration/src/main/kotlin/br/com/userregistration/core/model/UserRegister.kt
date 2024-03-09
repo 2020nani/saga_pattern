@@ -1,22 +1,18 @@
-package br.com.validateddocumentservice.core.model
+package br.com.userregistration.core.model
 
 import jakarta.persistence.*
 import java.time.LocalDateTime
 
-
 @Entity
-@Table(name = "validation")
-class Validation (
-    @Column(nullable = false)
-    private val userId: String,
-
-    @Column(nullable = false)
-    private val transactionId: String,
-
-    @Column(nullable = false)
-    private var success : Boolean,
-
+@Table(name = "user-register")
+class UserRegister (
+            private val name: String,
+            private val document: String,
+            private val cep: String,
+            @OneToOne
+            private val adress: AdressRegister,
 ) {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private val id: Int? = null
@@ -38,12 +34,4 @@ class Validation (
     fun preUpdate() {
         updatedAt = LocalDateTime.now()
     }
-
-    fun setSuccess(value: Boolean){ this.success = value};
-
-    fun getUserId(): String {return this.userId};
-    fun getTransactionId(): String {return this.transactionId}
-    fun getSuccess(): Boolean {return this.success}
-
 }
-

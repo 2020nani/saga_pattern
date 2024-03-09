@@ -1,8 +1,7 @@
-package br.com.validateddocumentservice.application.dto
+package br.com.userregistration.application.dto
 
-import br.com.validateddocumentservice.core.enums.ESagaStatus
+import br.com.userregistration.core.enums.ESagaStatus
 import java.time.LocalDateTime
-
 
 class History (
     private val source: String,

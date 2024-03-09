@@ -1,4 +1,4 @@
-package br.com.validateddocumentservice.application.dto
+package br.com.userregistration.application.dto
 
 import java.time.LocalDateTime
 

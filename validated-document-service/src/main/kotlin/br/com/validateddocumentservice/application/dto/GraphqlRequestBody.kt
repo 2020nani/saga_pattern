@@ -1,6 +1,4 @@
 package br.com.validateddocumentservice.application.dto
-
-
 class GraphqlRequestBody {
     private var query: String? = null
     private var variables: Any? = null

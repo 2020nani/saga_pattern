@@ -87,24 +87,6 @@ services:
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-
-  redpanda-console:
-    container_name: redpanda
-    image: docker.redpanda.com/vectorized/console:latest
-    restart: on-failure
-    entrypoint: /bin/sh
-    command: -c "echo \"$$CONSOLE_CONFIG_FILE\" > /tmp/config.yml; /app/console"
-    ports:
-      - "8087:8087"
-    networks:
-      - orchestrator-saga
-    environment:
-      CONFIG_FILEPATH: /tmp/config.yml
-      CONSOLE_CONFIG_FILE: |
-        kafka:
-          brokers: ["kafka:29092"]
-    depends_on:
-      - "kafka"
   
   user-service:
     build: './user-service'
@@ -138,7 +120,7 @@ services:
     depends_on:
       - adress-db
       - kafka
-      - cep-service
+      - data-service
     networks:
       - orchestrator-saga
     environment:
@@ -152,17 +134,17 @@ services:
     ports:
       - 8090:8090
   
-  cep-service:
+  data-service:
     build:
       dockerfile: ./dockerfile
-      context: ./cep-service
+      context: ./data-service
     command: npm start
     ports:
       - '8088:8088'
     networks:
       - orchestrator-saga
     volumes:
-      - ./cep-service:/usr/app
+      - ./data-service:/usr/app
     
 volumes:
   adress-volume:

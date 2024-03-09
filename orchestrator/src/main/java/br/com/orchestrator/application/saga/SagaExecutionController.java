@@ -18,7 +18,7 @@ import static org.springframework.util.ObjectUtils.isEmpty;
 @AllArgsConstructor
 public class SagaExecutionController {
 
-    private static final String SAGA_LOG_ID = "ORDER ID: %s | TRANSACTION ID %s | EVENT ID %s";
+    private static final String SAGA_LOG_ID = "USER ID: %s | TRANSACTION ID %s | EVENT ID %s";
 
     public ETopics getNextTopic(Event event) {
         if (isEmpty(event.getSource()) || isEmpty(event.getStatus())) {
