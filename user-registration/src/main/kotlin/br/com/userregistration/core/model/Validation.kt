@@ -44,6 +44,9 @@ class Validation (
     fun getUserId(): String {return this.userId};
     fun getTransactionId(): String {return this.transactionId}
     fun getSuccess(): Boolean {return this.success}
+    override fun toString(): String {
+        return "Validation(userId='$userId', transactionId='$transactionId', success=$success, id=$id, createdAt=$createdAt, updatedAt=$updatedAt)"
+    }
 
 }
 

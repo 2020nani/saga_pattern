@@ -72,7 +72,7 @@ class UserRegistrationService (
 
     private fun validatedEvent(event: Event) {
 
-        if (!isEmpty(event.getPayload()) || isEmpty(event.getPayload()?.getCep())) {
+        if (isEmpty(event.getPayload()) || isEmpty(event.getPayload()?.getCep())) {
             throw ValidationException("User or cep is empty!")
         }
         if (isEmpty(event.getPayload()?.getId()) || isEmpty(event.getTransactionId())) {
@@ -122,8 +122,7 @@ class UserRegistrationService (
             .findByUserIdAndTransactionId(event.getUserId()!!,event.getTransactionId()!!)
             .getOrElse { throw ValidationException("There is not validation") }
         validation.setSuccess(false)
-        println("teste")
-        println(validation.toString())
+
         validationRepository.save(validation)
         createValidation(event, false)
     }
